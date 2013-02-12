@@ -7,6 +7,11 @@
 
 # Java class files
 *.class
+.classpath
 
 # generated GUI files
 *R.java
+
+# generated Java files
+bin/
+gen/
