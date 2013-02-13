@@ -207,6 +207,9 @@ public class VerticalPager extends ViewGroup {
             mCurrentPage = mNextPage;
             mNextPage = INVALID_SCREEN;
             clearChildrenCache();
+            for (OnScrollListener mListener : mListeners) {
+                mListener.onViewScrollFinished(mCurrentPage);
+            }
         }
     }
 
@@ -225,12 +228,9 @@ public class VerticalPager extends ViewGroup {
             drawChild(canvas, getChildAt(i), drawingTime);
         }
 
+        int adjustedScrollY = getScrollY() + pageHeightPadding();
         for (OnScrollListener mListener : mListeners) {
-            int adjustedScrollY = getScrollY() + pageHeightPadding();
             mListener.onScroll(adjustedScrollY);
-            if (adjustedScrollY % pageHeight == 0) {
-                mListener.onViewScrollFinished(adjustedScrollY / pageHeight);
-            }
         }
     }
 
